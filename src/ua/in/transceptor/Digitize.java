@@ -1,5 +1,9 @@
 package ua.in.transceptor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 /**
  * Given a non-negative integer, return an array containing a list of independent digits in reverse order.
  * <p>
@@ -11,12 +15,16 @@ package ua.in.transceptor;
 public class Digitize {
     public static int[] digitize(long n) {
 
-        int[] result = new int[Long.toString(n).length()];
+        List<Integer> digitsSet = new ArrayList<>(0);
+        if(n == 0) return new int[]{0};
 
-        for(int i=0; i<result.length; i++){
-            result[i] = (int) n%10;
+        while (n>0){
+            digitsSet.add((int) (n%10));
             n/=10;
         }
+
+        int[] result = new int[digitsSet.size()];
+        IntStream.range(0, result.length).forEach((i) -> result[i] = digitsSet.get(i));
 
         return result;
     }
